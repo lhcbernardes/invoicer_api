@@ -6,8 +6,7 @@ const userSchema = new mongoose.Schema({
         required: true
     },
     email: {
-        type: String,
-        required: true
+        type: String
     },
     address: String,
     number: String,
@@ -22,7 +21,6 @@ const userSchema = new mongoose.Schema({
     supports: [
         {
             name: String,
-            description: String,
             createdAt: {
                 type: Date,
                 default: Date.now
@@ -48,6 +46,32 @@ const userSchema = new mongoose.Schema({
             createdAt: {
                 type: Date,
                 default: Date.now
+            }
+        }
+    ],
+    clients: [
+        {
+            address: String,
+            number: String,
+            CEP: String,
+            nome: {
+                type: String,
+                required: true
+            },
+            email: {
+                type: String,
+                required: true,
+                unique: true,
+                lowercase: true
+            },
+            cpf: {
+                type: String,
+                required: true,
+                unique: true
+            },
+            phone: {
+                type: String,
+                required: true
             }
         }
     ]

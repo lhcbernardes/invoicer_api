@@ -1,13 +1,26 @@
-const express = require('express');
-const router = express.Router();
-const User = require('../user');
+const User = require('../models/user');
 
-// Rota de serviços
-router.get('/:userId', async (req, res) => {
+const getAll = async (req, res) => {
     try {
-        const username = req.params;
+        const { userId } = req.params;
 
-        const user = await User.findOne({ username: username.userId });
+        const user = await User.findById(userId);
+
+        if (!user) {
+            return res.status(404).json({ message: 'Usuário não encontrado.' });
+        }
+
+        res.status(200).json(user.supports);
+    } catch (error) {
+        res.json(supports)
+    }
+}
+
+const getOne = async (req, res) => {
+    try {
+        const { userId } = req.params;
+        console.log(userId)
+        const user = await User.findById(userId);
         if (!user) {
             return res.status(404).json({ message: 'Usuário não encontrado.' });
         }
@@ -16,34 +29,34 @@ router.get('/:userId', async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: 'Erro ao listar serviços.' });
     }
-});
+}
 
-router.post('/:userId', async (req, res) => {
+const create = async (req, res) => {
     try {
-        const username = req.params;
-        const { name, description } = req.body;
-        const user = await User.findOne({ username: username.userId });
+        const { userId } = req.params;
+        const { name } = req.body;
+        console.log(req.params)
+
+        const user = await User.findById(userId);
 
         if (!user) {
             return res.status(404).json({ message: 'Usuário não encontrado.' });
         }
 
-        user.supports.push({ name, description });
+        user.supports.push({ name });
         await user.save();
 
         res.status(201).json({ message: 'Produto adicionado com sucesso.' });
     } catch (error) {
         res.status(500).json({ message: error });
     }
-});
+}
 
-// Rota para atualizar um produto de um usuário
-router.put('/:userId/:productId', async (req, res) => {
+const updateOne = async (req, res) => {
     try {
         const userId = req.params;
         const supportId = req.params;
         const name = req.body;
-        const description = req.body;
 
         const user = await User.findById(userId);
 
@@ -58,7 +71,6 @@ router.put('/:userId/:productId', async (req, res) => {
         }
 
         support.name = name;
-        support.description = description;
 
         await user.save();
 
@@ -66,15 +78,13 @@ router.put('/:userId/:productId', async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: 'Erro ao atualizar o produto.' });
     }
-});
+}
 
-// Rota para excluir um produto de um usuário
-router.delete('/:userId/:supportId', async (req, res) => {
+const deleteOne = async (req, res) => {
     try {
-
-        const userId = req.params.userId;
-        const supportId = req.params.supportId;
-        const user = await User.findOne({ username: userId });
+        const userId = req.params;
+        const supportId = req.params;
+        const user = await User.findById(userId);
 
         if (!user) {
             return res.status(404).json({ message: 'Usuário não encontrado.' });
@@ -93,11 +103,12 @@ router.delete('/:userId/:supportId', async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: 'Erro ao excluir o produto.' });
     }
-});
+}
 
-// router.get('/', /* ... */);
-// router.get('/:id', /* ... */);
-// router.put('/:id', /* ... */);
-// router.delete('/:id', /* ... */);
-
-module.exports = router;
+module.exports = {
+    getAll,
+    create,
+    getOne,
+    updateOne,
+    deleteOne
+}
