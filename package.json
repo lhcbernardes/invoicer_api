@@ -4,11 +4,10 @@
   "description": "Api to creat invoices",
   "main": "index.js",
   "engines": {
-    "node": "14.x"
+    "node": "18.x"
   },
   "scripts": {
-    "build": "netlify-lambda build src",
-    "start": "nodemon app.js",
+    "start": "node app.js",
     "dev": "nodemon app.js",
     "test": "test"
   },
