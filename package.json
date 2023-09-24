@@ -7,7 +7,7 @@
     "node": "14.x"
   },
   "scripts": {
-    "build": "netlify-lambda build src",
+    "build": "webpack --mode production --output-path public",
     "start": "nodemon app.js",
     "dev": "nodemon app.js",
     "test": "test"
