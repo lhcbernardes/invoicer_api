@@ -12,6 +12,14 @@
     "dev": "nodemon app.js",
     "test": "test"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lhcbernardes/invoicer_api"
+  },
+  "keywords": [
+    "netlify",
+    "express.js"
+  ],
   "author": "Leandro Bernardes",
   "license": "ISC",
   "dependencies": {

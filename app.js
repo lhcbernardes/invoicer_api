@@ -1,6 +1,6 @@
 require('dotenv').config();
 const express = require('express');
-const mongoose = require('mongoose');
+const router = express.Router();
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const cors = require('cors');
@@ -31,6 +31,7 @@ app.use('/clients', clientRouter);
 app.use('/services', serviceRouter);
 app.use('/supports', supportRouter);
 
+app.use('/.netlify/functions/server', router);
 
 app.listen(process.env.PORT || 9000, () => {
   console.log('Servidor rodando na porta 9000');
