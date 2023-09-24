@@ -14,6 +14,7 @@ const userRouter = require('./src/routes/users');
 const clientRouter = require('./src/routes/clients');
 const serviceRouter = require('./src/routes/services');
 const supportRouter = require('./src/routes/supports');
+const apiRouter = require('./src/api');
 
 const db = require('./src/data/database')
 db.connect()
@@ -23,6 +24,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
 
+app.use('/', apiRouter)
 app.use('/auth', authRouter);
 app.use('/users', userRouter);
 app.use('/clients', clientRouter);
