@@ -9,7 +9,6 @@ const cors = require('cors');
 const app = express();
 require('dotenv').config()
 
-const authRouter = require('./routes/auth');
 const userRouter = require('./routes/users');
 const clientRouter = require('./routes/clients');
 const serviceRouter = require('./routes/services');
@@ -27,7 +26,6 @@ app.get('/', (req, res) => {
   return res.json("hello world");
 });
 
-app.use('/auth', authRouter);
 app.use('/users', userRouter);
 app.use('/clients', clientRouter);
 app.use('/services', serviceRouter);
