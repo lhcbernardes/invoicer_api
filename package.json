@@ -7,7 +7,7 @@
     "node": "14.x"
   },
   "scripts": {
-    "build": "netlify-lambda build express",
+    "build": "netlify-lambda build src",
     "start": "nodemon app.js",
     "dev": "nodemon app.js",
     "test": "test"
@@ -22,7 +22,8 @@
     "express-validator": "^7.0.1",
     "mongodb": "^6.0.0",
     "mongoose": "^7.5.0",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "serverless-http": "^3.2.0"
   },
   "devDependencies": {
     "nodemon": "^3.0.1"
