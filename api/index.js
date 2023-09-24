@@ -9,13 +9,13 @@ const cors = require('cors');
 const app = express();
 require('dotenv').config()
 
-const authRouter = require('./src/routes/auth');
-const userRouter = require('./src/routes/users');
-const clientRouter = require('./src/routes/clients');
-const serviceRouter = require('./src/routes/services');
-const supportRouter = require('./src/routes/supports');
+const authRouter = require('./routes/auth');
+const userRouter = require('./routes/users');
+const clientRouter = require('./routes/clients');
+const serviceRouter = require('./routes/services');
+const supportRouter = require('./routes/supports');
 
-const db = require('./src/data/database')
+const db = require('./data/database')
 db.connect()
 
 app.use(morgan('dev'));
