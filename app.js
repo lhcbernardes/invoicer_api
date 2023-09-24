@@ -7,6 +7,7 @@ const cors = require('cors');
 
 // Criando o servidor express
 const app = express();
+require('dotenv').config()
 
 const authRouter = require('./src/routes/auth');
 const userRouter = require('./src/routes/users');
@@ -29,6 +30,6 @@ app.use('/services', serviceRouter);
 app.use('/supports', supportRouter);
 
 
-app.listen(9000, () => {
+app.listen(process.env.PORT || 9000, () => {
   console.log('Servidor rodando na porta 9000');
 });
