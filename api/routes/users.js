@@ -2,6 +2,26 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
 
+// Criação Automatica de usuario
+router.post('/autosignup', async (req, res) => {
+    try {
+        const { userid, username, email, picture } = req.body;
+
+        // Verifique se o usuário já existe
+        const existingUser = await User.findOne({ username });
+
+        if (existingUser) {
+            return res.status(200).json(existingUser);
+        }
+
+        const newUser = new User({ userid, username, email, picture });
+        await newUser.save();
+        res.status(201).json({ message: 'Usuário registrado com sucesso.' });
+    } catch (error) {
+        res.status(500).json({ message: 'Erro ao criar usuário.' });
+    }
+});
+
 // Rota de criação de usuário
 router.post('/signup', async (req, res) => {
     try {
