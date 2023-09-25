@@ -11,6 +11,9 @@ const userSchema = new mongoose.Schema({
     picture: {
         type: String
     },
+    userid: {
+        type: String
+    },
     address: String,
     number: String,
     CNPJ: String,
