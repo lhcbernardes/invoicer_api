@@ -14,6 +14,11 @@ const userSchema = new mongoose.Schema({
     userid: {
         type: String
     },
+    instagran: String,
+    address: String,
+    website: String,
+    nickname: String,
+    setIntroTitle: String,
     address: String,
     number: String,
     CNPJ: String,
@@ -25,6 +30,15 @@ const userSchema = new mongoose.Schema({
         default: Date.now
     },
     supports: [
+        {
+            name: String,
+            createdAt: {
+                type: Date,
+                default: Date.now
+            }
+        }
+    ],
+    attendants: [
         {
             name: String,
             createdAt: {

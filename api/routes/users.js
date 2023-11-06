@@ -22,6 +22,33 @@ router.post('/autosignup', async (req, res) => {
     }
 });
 
+// Criação Automatica de usuario
+router.put('/:id', async (req, res) => {
+    try {
+        const { CEP, cidade, CNPJ, instagran, labelTitle, name, nickname, number, subtitle, website } = req.body; // Verifique se o usuário já existe
+        const existingUser = await User.findById(req.params.id);
+
+        if (!existingUser) {
+            return res.status(404).json(existingUser);
+        }
+        existingUser.CEP = CEP;
+        existingUser.cidade = cidade;
+        existingUser.CNPJ = CNPJ;
+        existingUser.instagran = instagran;
+        existingUser.labelTitle = labelTitle;
+        existingUser.nickname = nickname;
+        existingUser.number = number;
+        existingUser.subtitle = subtitle;
+        existingUser.website = website;
+
+        // Salve as alterações no banco de dados
+        await existingUser.save();
+        res.status(201).json(existingUser);
+    } catch (error) {
+        res.status(500).json({ message: 'Erro ao criar usuário.' });
+    }
+});
+
 // Rota de criação de usuário
 router.post('/signup', async (req, res) => {
     try {
@@ -84,10 +111,5 @@ router.delete('/:userName', async (req, res) => {
         res.status(500).json(error);
     }
 });
-
-// router.get('/', /* ... */);
-// router.get('/:id', /* ... */);
-// router.put('/:id', /* ... */);
-// router.delete('/:id', /* ... */);
 
 module.exports = router;

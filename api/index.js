@@ -13,6 +13,7 @@ const userRouter = require('./routes/users');
 const clientRouter = require('./routes/clients');
 const serviceRouter = require('./routes/services');
 const supportRouter = require('./routes/supports');
+const attendantsRouter = require('./routes/attendant');
 
 const db = require('./data/database')
 db.connect()
@@ -30,6 +31,7 @@ app.use('/users', userRouter);
 app.use('/clients', clientRouter);
 app.use('/services', serviceRouter);
 app.use('/supports', supportRouter);
+app.use('/attendants', attendantsRouter);
 
 app.use('/.netlify/functions/server', router);
 

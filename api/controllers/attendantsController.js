@@ -10,9 +10,9 @@ const getAll = async (req, res) => {
             return res.status(404).json({ message: 'Usuário não encontrado.' });
         }
 
-        res.status(200).json(user.supports);
+        res.status(200).json(user.attendant);
     } catch (error) {
-        res.json(supports)
+        res.json(attendant)
     }
 }
 
@@ -25,7 +25,7 @@ const getOne = async (req, res) => {
             return res.status(404).json({ message: 'Usuário não encontrado.' });
         }
 
-        res.status(200).json(user.supports);
+        res.status(200).json(user.attendant);
     } catch (error) {
         res.status(500).json({ message: 'Erro ao listar serviços.' });
     }
@@ -35,7 +35,6 @@ const create = async (req, res) => {
     try {
         const { userId } = req.params;
         const { name } = req.body;
-        // console.log(req.params)
 
         const user = await User.findById(userId);
 
@@ -43,7 +42,7 @@ const create = async (req, res) => {
             return res.status(404).json({ message: 'Usuário não encontrado.' });
         }
 
-        user.supports.push({ name });
+        user.attendants.push( name );
         await user.save();
 
         res.status(201).json(user);
@@ -64,19 +63,19 @@ const updateOne = async (req, res) => {
             return res.status(404).json({ message: 'Usuário não encontrado.' });
         }
 
-        const support = user.supports.id(supportId);
+        const support = user.attendant.id(supportId);
 
         if (!support) {
-            return res.status(404).json({ message: 'Produto não encontrado.' });
+            return res.status(404).json({ message: 'Atendente não encontrado.' });
         }
 
         support.name = name;
 
         await user.save();
 
-        res.status(200).json({ message: 'Produto atualizado com sucesso.' });
+        res.status(200).json({ message: 'Atendente atualizado com sucesso.' });
     } catch (error) {
-        res.status(500).json({ message: 'Erro ao atualizar o produto.' });
+        res.status(500).json({ message: 'Erro ao atualizar o Atendente.' });
     }
 }
 
@@ -90,18 +89,18 @@ const deleteOne = async (req, res) => {
             return res.status(404).json({ message: 'Usuário não encontrado.' });
         }
 
-        const support = user.supports.id(supportId);
+        const support = user.attendant.id(supportId);
 
         if (!support) {
-            return res.status(404).json({ message: 'Produto não encontrado.' });
+            return res.status(404).json({ message: 'Atendente não encontrado.' });
         }
 
         support.deleteOne(support);
         await user.save();
 
-        res.status(200).json({ message: 'Produto excluído com sucesso.' });
+        res.status(200).json({ message: 'Atendente excluído com sucesso.' });
     } catch (error) {
-        res.status(500).json({ message: 'Erro ao excluir o produto.' });
+        res.status(500).json({ message: 'Erro ao excluir o Atendente.' });
     }
 }
 
